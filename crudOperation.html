@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>crud operations</title>
+    <style>
+        .main{
+            display: block;
+        }
+        table {
+            width: 80%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        #new,#add {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: background 0.3s ease;
+        }
+        .add-employee{
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="main">
+        <h1 id="name">somen kumar singh</h1>
+        <table id="emp-table"></table>
+        <button id="new">new</button>
+    </div>
+
+
+    <div class="add-employee">
+        name: 
+        <input type="text" id="empName">
+        age: 
+        <input type="text" id="age">
+        phone: 
+        <input type="text" id="phone">
+        salary: 
+        <input type="text" id="salary">
+        <div>
+            <button id="add">Add</button>
+        </div>
+    </div>
+
+
+    <script>
+        let employee=[
+            {name:"somen" ,age:23, phone:"123456", salary:"100k"},
+            {name:"singh" ,age:23, phone:"1234426", salary:"100k"},
+            {name:"kumar" ,age:23, phone:"123456", salary:"100k"},
+            {name:"sSingh" ,age:23, phone:"903456", salary:"100k"},
+            {name:"sSinghkumarsingh" ,age:23, phone:"903456", salary:"100k"},
+        ];
+        let heading=document.getElementById("name");
+        heading.innerText="singhsomen";
+
+
+        let empTable=document.getElementById("emp-table");
+        let newBtn=document.getElementById("new");
+
+        function renderTable(){
+            empTable.innerHTML="<tr><th>name</th> <th>age</th> <th>phone</th> <th>salary</th> </tr>"
+            for(let i=0;i<employee.length;i++){
+                let row=empTable.insertRow();
+                let cell1=row.insertCell(0);
+                let cell2=row.insertCell(1);
+                let cell3=row.insertCell(2);
+                let cell4=row.insertCell(3);
+                let cell5=row.insertCell(4);
+                cell1.innerText=employee[i].name;
+                cell2.innerText=employee[i].age;
+                cell3.innerText=employee[i].phone;
+                cell4.innerText=employee[i].salary;
+                cell5.innerHTML=`<button id="button" onClick="handleEdit(this)">Delete</button>`
+            }
+
+        }
+
+
+        function handleEdit(event){
+           console.log("delete button is pressed");
+           let data=event.parentElement.parentElement;
+           console.log(data);
+           data.remove();
+        }
+
+        newBtn.addEventListener("click",()=>{
+            document.querySelector(".add-employee").style.display="block";
+            document.querySelector(".main").style.display="none";
+        });
+
+
+        let addBtn=document.getElementById("add");
+       
+
+        add.addEventListener("click",()=>{
+            let tempEmployee={
+                name:document.querySelector("#empName").value,
+                age:document.querySelector("#age").value,
+                phone:document.querySelector("#phone").value,
+                salary:document.querySelector("#salary").value,
+            };
+            employee.push(tempEmployee);
+            document.querySelector(".main").style.display="block";
+            document.querySelector(".add-employee").style.display="none";
+            renderTable();
+        });
+        renderTable();
+    </script>
+</body>
+</html>
